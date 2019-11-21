@@ -41,7 +41,7 @@ overlap=Settings(3);
 
 % (4) High frequency cutoff (kHz)
 if audio_info.SampleRate < (Settings(4)*1000)*2
-    disp('Warning: Upper Range Above Samplng Frequency');
+    disp('Warning: Upper Range Above Sampling Frequency');
     HighCutoff=floor(audio_info.SampleRate/2000);
 else
     HighCutoff = Settings(4);
@@ -111,7 +111,8 @@ for i = 1:length(chunks)-1
 
         for iteration = 1:number_of_repeats
             
-            im = mat2gray(s,[scale_factor(1,iteration)*med scale_factor(2,iteration)*med]);
+%             im = mat2gray(s,[scale_factor(1,iteration)*med scale_factor(2,iteration)*med]);
+            im = mat2gray(s) ; % LUC No scaling !
             
             % Subtract the 5th percentile to remove horizontal noise bands
             im = im - prctile(im,5,2);
@@ -136,11 +137,20 @@ for i = 1:length(chunks)-1
                     callPower];
             end
             
-            % Convert boxes from pixels to time and kHz
+%             % Convert boxes from pixels to time and kHz
+%             bboxes(:,1) = ti(bboxes(:,1)) + (windL ./ audio_info.SampleRate);
+%             bboxes(:,2) = fr(upper_freq - (bboxes(:,2) + bboxes(:,4))) ./ 1000;
+%             bboxes(:,3) = ti(bboxes(:,3));
+%             bboxes(:,4) = fr(bboxes(:,4)) ./ 1000;
+
+              % LUC Modification in case index is negative or zero (because
+              % boats are close to the bottom
+
             bboxes(:,1) = ti(bboxes(:,1)) + (windL ./ audio_info.SampleRate);
-            bboxes(:,2) = fr(upper_freq - (bboxes(:,2) + bboxes(:,4))) ./ 1000;
+            bboxes(:,2) = fr(max(upper_freq - (bboxes(:,2) + bboxes(:,4)),1)) ./ 1000; % LUC
             bboxes(:,3) = ti(bboxes(:,3));
             bboxes(:,4) = fr(bboxes(:,4)) ./ 1000;
+
             
             % Concatinate the results
             AllBoxes=[AllBoxes

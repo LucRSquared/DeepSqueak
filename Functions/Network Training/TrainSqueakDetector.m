@@ -51,6 +51,7 @@ optionsStage4 = trainingOptions('sgdm', ...
     'MaxEpochs', 8, ...
     'InitialLearnRate', 1e-4,'MiniBatchSize',MiniBatchSize);
 
+
 options = [
     optionsStage1
     optionsStage2

@@ -33,11 +33,9 @@ while sum(greaterthannoise)<5
 end
 
 % index of time points
-% LUC FIX
-
-if length(amplitude) == 1
-    stats.ridgeTime = 1;
-    stats.ridgeFreq = ridgeFreq ;
+if length(amplitude) == 1 % LUC FIX
+    stats.ridgeTime = 1; % LUC FIX
+    stats.ridgeFreq = ridgeFreq ; % LUC FIX
 else
     stats.ridgeTime = find(greaterthannoise);
     stats.ridgeFreq = ridgeFreq(greaterthannoise);

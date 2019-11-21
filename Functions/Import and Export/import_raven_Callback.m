@@ -4,9 +4,22 @@ function import_raven_Callback(hObject, eventdata, handles)
 % (http://www.birds.cornell.edu/brp/raven/RavenOverview.html)
 
 %% Get the files
-[ravenname,ravenpath] = uigetfile([handles.data.squeakfolder '/*.txt'],'Select Raven Log');
+% [ravenname,ravenpath] = uigetfile([handles.data.squeakfolder '/*.txt'],'Select Raven Log'); % LUC modified for easier batch processing
+try
+    disp('MODIFIED BEHAVIOR!') 
+    [ravenname,ravenpath] = uigetfile('G:\My Drive\Ole Miss\NCCHE\DeepWaves\TN\wlog2\Selections_cleaned\*.txt','Select Raven Log');
+catch
+    [ravenname,ravenpath] = uigetfile([handles.data.squeakfolder '/*.txt'],'Select Raven Log'); % LUC modified for easier batch processing
+end
+
 ravenTable = readtable([ravenpath ravenname], 'Delimiter', 'tab');
-[audioname, audiopath] = uigetfile({'*.wav;*.wmf;*.flac;*.UVD' 'Audio File';'*.wav' 'WAV (*.wav)'; '*.wmf' 'WMF (*.wmf)'; '*.flac' 'FLAC (*.flac)'; '*.UVD' 'Ultravox File (*.UVD)'},'Select Audio File',handles.data.settings.audiofolder);
+
+try
+    disp('MODIFIED BEHAVIOR!')
+    [audioname, audiopath] = uigetfile({'*.wav;*.wmf;*.flac;*.UVD' 'Audio File';'*.wav' 'WAV (*.wav)'; '*.wmf' 'WMF (*.wmf)'; '*.flac' 'FLAC (*.flac)'; '*.UVD' 'Ultravox File (*.UVD)'},'Select Audio File',[handles.data.settings.audiofolder,filesep,ravenname(1:end-23),'.wav']);
+catch
+    [audioname, audiopath] = uigetfile({'*.wav;*.wmf;*.flac;*.UVD' 'Audio File';'*.wav' 'WAV (*.wav)'; '*.wmf' 'WMF (*.wmf)'; '*.flac' 'FLAC (*.flac)'; '*.UVD' 'Ultravox File (*.UVD)'},'Select Audio File',handles.data.settings.audiofolder);
+end
 
 info = audioinfo([audiopath audioname]);
 if info.NumChannels > 1

@@ -9,8 +9,12 @@ end
 [I,windowsize,noverlap,nfft,rate,box,s,fr,ti,audio,AudioRange] = CreateSpectrogram(handles.data.calls(handles.data.currentcall, :));
 
 % Plot Spectrogram
-set(handles.axes1,'YDir', 'normal','YColor',[1 1 1],'XColor',[1 1 1],'Clim',[0 2*mean(max(I))]);
-set(handles.spect,'CData',imgaussfilt(abs(s)),'XData',ti,'YData',fr/1000);
+% set(handles.axes1,'YDir', 'normal','YColor',[1 1 1],'XColor',[1 1 1],'Clim',[0 2*mean(max(I))]);
+set(handles.axes1,'YDir', 'normal','YColor',[1 1 1],'XColor',[1 1 1],'Clim',[0 0.75]); % LUC fix the caxis
+% set(handles.spect,'CData',imgaussfilt(abs(s)),'XData',ti,'YData',fr/1000);
+% LUC Don't filter
+set(handles.spect,'CData',abs(s),'XData',ti,'YData',fr/1000);
+
 
 if handles.data.settings.DisplayTimePadding ~= 0
     meantime = handles.data.calls.RelBox(handles.data.currentcall, 1) + handles.data.calls.RelBox(handles.data.currentcall, 3) / 2;
@@ -29,13 +33,14 @@ set(handles.slider1, 'Value', (handles.data.currentcall-1) / (height(handles.dat
 
 % Box Creation
 if handles.data.calls.Accept(handles.data.currentcall)
-    set(handles.box,'Position',handles.data.calls.RelBox(handles.data.currentcall, :),'EdgeColor','g')
+    set(handles.box,'Position',handles.data.calls.RelBox(handles.data.currentcall, :),'EdgeColor','g') % LUC
 else
-    set(handles.box,'Position',handles.data.calls.RelBox(handles.data.currentcall, :),'EdgeColor','r')
+    set(handles.box,'Position',handles.data.calls.RelBox(handles.data.currentcall, :),'EdgeColor','r') % LUC
 end
 
 % Blur Box
 set(handles.filtered_image_plot,'CData',flipud(stats.FilteredImage))
+% LUC 
 set(handles.axes4,'Color',[.1 .1 .1],'YColor',[1 1 1],'XColor',[1 1 1],'Box','off','Clim',[.2*min(min(stats.FilteredImage)) .2*max(max(stats.FilteredImage))],'XLim',[1 size(stats.FilteredImage,2)],'YLim',[1 size(stats.FilteredImage,1)]);
 set(handles.axes4,'YTickLabel',[]);
 set(handles.axes4,'XTickLabel',[]);
@@ -44,7 +49,7 @@ set(handles.axes4,'YTick',[]);
 
 % plot Ridge Detection
 set(handles.ContourScatter,'XData',stats.ridgeTime','YData',stats.ridgeFreq_smooth);
-set(handles.axes7,'Xlim',[1 size(I,2)],'Ylim',[1 size(I,1)]);
+% LUC set(handles.axes7,'Xlim',[1 size(I,2)],'Ylim',[1 size(I,1)]);
 
 % Plot Slope
 X = [ones(size(stats.ridgeTime)); stats.ridgeTime]';

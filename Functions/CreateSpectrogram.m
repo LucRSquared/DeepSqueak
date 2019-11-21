@@ -45,8 +45,10 @@ x2=find(ti>=(call.RelBox(1)+call.RelBox(3)),1);
 if isempty(x2)
    x2=length(ti); 
 end
-y1=find(fr./1000>=round(call.RelBox(2)),1);
-y2=find(fr./1000>=round(call.RelBox(2)+call.RelBox(4)),1);
+% y1=find(fr./1000>=round(call.RelBox(2)),1);
+% y2=find(fr./1000>=round(call.RelBox(2)+call.RelBox(4)),1);
+y1=find(fr./1000>=floor(call.RelBox(2)),1);
+y2=find(fr./1000>=ceil(call.RelBox(2)+call.RelBox(4)),1); % LUC little fix to avoid y1 = y2
 I=abs(s(y1:y2,x1:x2));
 
 % Audio range of box, for display
