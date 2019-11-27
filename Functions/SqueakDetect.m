@@ -117,8 +117,16 @@ for i = 1:length(chunks)-1
             % Subtract the 5th percentile to remove horizontal noise bands
             im = im - prctile(im,5,2);
             
+            
+            % Check if the network requires rgb or grayscale % LUC
+            imchannel = network.Network.Layers(1).InputSize(3) ; % LUC
+            
+            if imchannel == 3 % LUC
+               im = repmat(im,1,1,3) ;            
+            end
+            
             % Detect!
-            [bboxes, scores, Class] = detect(network, im2uint8(im), 'ExecutionEnvironment','auto','NumStrongestRegions',Inf);
+            [bboxes, scores, Class] = detect(network, im2uint8(im), 'ExecutionEnvironment','auto','NumStrongestRegions',Inf);            
             
             % Calculate each call's power
             Power = [];

@@ -9,9 +9,11 @@ end
 [I,windowsize,noverlap,nfft,rate,box,s,fr,ti,audio,AudioRange] = CreateSpectrogram(handles.data.calls(handles.data.currentcall, :));
 
 % Plot Spectrogram
-% set(handles.axes1,'YDir', 'normal','YColor',[1 1 1],'XColor',[1 1 1],'Clim',[0 2*mean(max(I))]);
-set(handles.axes1,'YDir', 'normal','YColor',[1 1 1],'XColor',[1 1 1],'Clim',[0 0.75]); % LUC fix the caxis
-% set(handles.spect,'CData',imgaussfilt(abs(s)),'XData',ti,'YData',fr/1000);
+set(handles.axes1,'YDir', 'normal','YColor',[1 1 1],'XColor',[1 1 1],'Clim',[0 2*mean(max(I))]);
+% set(handles.axes1,'YDir', 'normal','YColor',[1 1 1],'XColor',[1 1 1],'Clim',[0 0.75]); % LUC fix the caxis
+
+% set(handles.spect,'CData',imgaussfilt(abs(s)),'XData',ti,'YData',fr/1000); % LUC don't use imgaussfilt
+
 % LUC Don't filter
 set(handles.spect,'CData',abs(s),'XData',ti,'YData',fr/1000);
 
