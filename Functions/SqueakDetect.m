@@ -125,8 +125,25 @@ for i = 1:length(chunks)-1
                im = repmat(im,1,1,3) ;            
             end
             
+            % LUC
+            % Resize smallest dimension to fit the network input size
+            inputSize = network.Network.Layers(1).InputSize(1:2) ;
+            inputSizeMax = max(inputSize) ;
+            
+            imdim1 = size(im,1) ;
+            imdim2 = size(im,2) ;
+            
+            imdim = min(imdim1,imdim2) ;
+            
+            if imdim < inputSizeMax            
+                resizeFactor = inputSizeMax/imdim ;
+                im = imresize(im,resizeFactor) ;
+            end
+            
+            
             % Detect!
             [bboxes, scores, Class] = detect(network, im2uint8(im), 'ExecutionEnvironment','auto','NumStrongestRegions',Inf);            
+
             
             % Calculate each call's power
             Power = [];

@@ -4,3 +4,6 @@ settings.mat
 Training/
 Detections/*.mat
 Audio/
+Networks/DeepShip_VGG16_48x48_8587.mat
+Networks/DeepShip_VGG19_8587.mat
+Networks/DeepShip_VGG19_8587_FullTrain.mat
