@@ -2,20 +2,22 @@ function [detector, layers, options] = TrainSqueakDetector(TrainingTables,layers
 
 % Specify layers if not transfering from previous network
 
-rng(19921118) ;
-NumSamples = height(TrainingTables) ;
-% NumTraining = round(0.7*NumSamples) ;
-NumTraining = round(0.8*NumSamples) ;
+% rng(19921118) ;
+% NumSamples = height(TrainingTables) ;
+% % NumTraining = round(0.7*NumSamples) ;
+% NumTraining = round(0.8*NumSamples) ;
+% 
+% permu = randperm(NumSamples) ;
+% 
+% selectrain = permu(1:NumTraining) ;
+% 
+% ValidationTables = TrainingTables(permu(NumTraining+1:end),:) ;
+% 
+% TrainingTables = TrainingTables(selectrain,:) ;
 
-permu = randperm(NumSamples) ;
+load('G:\My Drive\Ole Miss\NCCHE\DeepWaves\DeepSqueak\Training\ShuffledTrainingValidatingFiles.mat')
 
-selectrain = permu(1:NumTraining) ;
-
-ValidationTables = TrainingTables(permu(NumTraining+1:end),:) ;
-
-TrainingTables = TrainingTables(selectrain,:) ;
-
-
+TrainingTables = TrainingTables70 ;
 
 if nargin == 1
 %         layers = [
@@ -262,11 +264,16 @@ options = [
     ];
 
 
+% detector = trainFasterRCNNObjectDetector(TrainingTables, layers, options, ...
+%     'NegativeOverlapRange', [0 0.4], ...
+%     'PositiveOverlapRange', [0.6 1], ...
+%     'BoxPyramidScale', 1.8,'NumStrongestRegions',Inf,...
+%     'FreezeBatchNormalization',false);
+
 detector = trainFasterRCNNObjectDetector(TrainingTables, layers, options, ...
     'NegativeOverlapRange', [0 0.4], ...
     'PositiveOverlapRange', [0.6 1], ...
-    'BoxPyramidScale', 1.8,'NumStrongestRegions',Inf,...
-    'FreezeBatchNormalization',false);
+    'BoxPyramidScale', 1.8,'NumStrongestRegions',Inf);
 
 
 end
