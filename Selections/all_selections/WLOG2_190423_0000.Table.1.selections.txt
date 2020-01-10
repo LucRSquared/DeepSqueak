@@ -1,0 +1,7 @@
+Selection	View	Channel	Begin Time (s)	End Time (s)	Low Freq (Hz)	High Freq (Hz)	Delta Time (s)	Delta Freq (Hz)	Avg Power Density (dB FS)	Annotation
+1	Spectrogram 1	1	53.342688568	55.227270083	123.2	2637.7	1.885	2514.5	-58.0	
+2	Spectrogram 1	1	62.961132948	63.532009830	224.6	2355.1	0.571	2130.4	-55.6	
+3	Spectrogram 1	1	67.648513615	67.951147143	65.2	702.9	0.303	637.7	-63.2	
+4	Spectrogram 1	1	73.867392979	74.799366685	152.2	1471.0	0.932	1318.8	-53.1	
+5	Spectrogram 1	1	92.610432866	93.009358880	108.7	1246.4	0.399	1137.7	-59.3	
+6	Spectrogram 1	1	94.632575076	95.103720455	29.0	1036.2	0.471	1007.2	-41.6	
