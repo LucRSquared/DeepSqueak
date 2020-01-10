@@ -1,16 +1,18 @@
 [filename, filepath] = uigetfile('*.txt','Selection Files','MultiSelect','on') ;
 %%
-% path2detections = 'G:/My Drive/Ole Miss/NCCHE/DeepWaves/DeepSqueak/Detections/NetworkDetections/' ;
-path2detections = 'G:/My Drive/Ole Miss/NCCHE/DeepWaves/DeepSqueak/Detections/' ;
+path2detections = '../Detections/NetworkDetections/' ;
+% path2detections = '../Detections/' ;
 s = dir(path2detections) ;
 dfiles = {s(3:end).name} ;
 dfilesOverlapRatios = cell(1) ;
 
+% Get the number of files to process
 if iscell(filename)
     N = numel(filename) ;
 else
     N = 1 ;
 end
+
 
 c = 0 ;
 
@@ -57,13 +59,13 @@ end
 
 %% Significant Numbers!
 
-M = numel(dfilesOverlapRatios) ;
+[M,~] = size(dfilesOverlapRatios) ;
 
 missedBoats = 0 ;
 falsePositives = 0 ;
 truePositives = 0 ;
 
-threshold = 0.5 ;
+threshold = 0.4 ;
 
 for o = 1:M
     
@@ -87,3 +89,7 @@ totalNumDetections = truePositives + falsePositives ;
 totalRealBoats = missedBoats + truePositives ;
 
 
+% Need to run detections for validation set
+% - DeepShip
+% - DeeperShip
+% Do the performance analysis
