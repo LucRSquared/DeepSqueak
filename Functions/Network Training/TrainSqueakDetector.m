@@ -20,33 +20,8 @@ load('G:\My Drive\Ole Miss\NCCHE\DeepWaves\DeepSqueak\Training\ShuffledTrainingV
 TrainingTables = TrainingTables70 ;
 
 if nargin == 1
-%         layers = [
-%             imageInputLayer([30 50 1])
-%             
-%             convolution2dLayer([5 5], 16, 'Padding', 1, 'Stride', [2 2])
-%             batchNormalizationLayer
-%             leakyReluLayer(0.1)
-%             
-%             convolution2dLayer([5 5], 20, 'Padding', 1, 'Stride', [2 2])
-%             batchNormalizationLayer
-%             leakyReluLayer(0.1)
-%             
-%             convolution2dLayer([3 3], 32)
-%             batchNormalizationLayer
-%             leakyReluLayer(0.1)
-%             
-%             maxPooling2dLayer(2, 'Stride',2)
-%             
-%             fullyConnectedLayer(64)
-%             reluLayer()
-%             fullyConnectedLayer(width(TrainingTables))
-%             softmaxLayer()
-%             classificationLayer()
-%             ];
-
-% Modified DeepShip 50x50
         layers = [
-            imageInputLayer([50 50 1])
+            imageInputLayer([30 50 1])
             
             convolution2dLayer([5 5], 16, 'Padding', 1, 'Stride', [2 2])
             batchNormalizationLayer
@@ -68,6 +43,31 @@ if nargin == 1
             softmaxLayer()
             classificationLayer()
             ];
+
+% % Modified DeepShip 50x50
+%         layers = [
+%             imageInputLayer([50 50 1])
+%             
+%             convolution2dLayer([5 5], 16, 'Padding', 1, 'Stride', [2 2])
+%             batchNormalizationLayer
+%             leakyReluLayer(0.1)
+%             
+%             convolution2dLayer([5 5], 20, 'Padding', 1, 'Stride', [2 2])
+%             batchNormalizationLayer
+%             leakyReluLayer(0.1)
+%             
+%             convolution2dLayer([3 3], 32)
+%             batchNormalizationLayer
+%             leakyReluLayer(0.1)
+%             
+%             maxPooling2dLayer(2, 'Stride',2)
+%             
+%             fullyConnectedLayer(64)
+%             reluLayer()
+%             fullyConnectedLayer(width(TrainingTables))
+%             softmaxLayer()
+%             classificationLayer()
+%             ];
 
 % Modified Input DeepShip
 %         layers = [
